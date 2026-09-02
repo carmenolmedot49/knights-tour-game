@@ -343,7 +343,6 @@ header h1 {
 /* ================================================
    4. ADAPTACIÓN RESPONSIVE DEFINITIVA (MÓVIL)
    ================================================ */
-
 @media (max-width: 600px) {
   body {
     padding: 10px 5px !important;
@@ -355,7 +354,6 @@ header h1 {
     margin: 5px 0 10px 0 !important;
   }
 
-  /* Reducción de selectores y menú */
   .settings {
     margin-bottom: 8px !important;
   }
@@ -380,7 +378,7 @@ header h1 {
     text-align: center !important;
   }
 
-  /* TABLERO COMPACTO: Encaja exactamente en el ancho de pantalla */
+  /* TABLERO COMPACTO */
   .tablero {
     grid-template-columns: repeat(8, 10.5vw) !important;
     grid-template-rows: repeat(8, 10.5vw) !important;
@@ -397,7 +395,7 @@ header h1 {
     border-radius: 4px !important;
   }
 
-  /* Ventana Emergente adaptada */
+  /* VENTANA EMERGENTE: Prioridad absoluta para clics táctiles */
   #message {
     padding: 12px 10px !important;
     border-width: 3px !important;
@@ -409,6 +407,11 @@ header h1 {
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
+    
+    /* Garantiza detección táctil prioritario */
+    z-index: 99999 !important;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
   }
 
   #notification {
@@ -418,20 +421,26 @@ header h1 {
     padding: 0 4px !important;
     max-height: 35vh !important;
     overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
   }
 
   #messageButtons,
   #continueBtn {
     margin-top: 4px !important;
     flex-shrink: 0 !important;
+    position: relative !important;
+    z-index: 100000 !important;
   }
 
   #messageButtons button, 
   #continueBtn {
-    font-size: 0.8rem !important;
-    padding: 6px 12px !important;
+    font-size: 0.85rem !important;
+    padding: 10px 14px !important; /* Ligeramente más alto para mejor zona táctil */
     border-radius: 6px !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
   }
 }
