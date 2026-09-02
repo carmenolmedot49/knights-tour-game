@@ -341,8 +341,9 @@ header h1 {
 }
 
 
+
 /* ================================================
-   4. ADAPTACIÓN RESPONSIVE DEFINITIVA (SÓLO MÓVIL)
+   4. ADAPTACIÓN RESPONSIVE LIMPIA (MÓVIL)
    ================================================ */
 @media (max-width: 600px) {
   body {
@@ -364,37 +365,46 @@ header h1 {
     font-size: 0.8rem;
   }
 
-  /* RESTRUCTURACIÓN DEL MENÚ EN MÓVIL A 2 COLUMNAS PERFECTAS */
+  /* MENÚ Y TARJETAS SUPERIORES */
   .menu {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 6px !important;
-    margin: 0 auto 10px auto !important;
-    width: 100% !important;
-    max-width: 340px !important;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 340px;
+    justify-content: center;
+    align-items: center;
   }
 
-  /* TODAS LAS CAJAS CON LA MISMA ALTURA Y TAMAÑO EN MÓVIL */
+  /* Ajuste uniforme de las cajitas de contadores */
   .menu div {
-    padding: 6px 8px !important;
-    font-size: 0.75rem !important;
-    border-radius: 6px !important;
-    box-sizing: border-box !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    min-height: 44px !important; /* Altura idéntica garantizada para todas */
-    width: 100% !important;
-    margin: 0 !important;
+    padding: 6px 8px;
+    font-size: 0.75rem;
+    border-radius: 6px;
+    flex: 1 1 42%;
+    text-align: center;
+    box-sizing: border-box;
   }
 
-  /* BARRA DE BONUS COMPACTA PARA NO ENGORDAR SU CAJA */
+  /* Ajuste de alto para la tarjeta del Bonus */
+  .menu div:has(#bonus) {
+    padding: 8px 8px;
+  }
+
+  /* BARRA DE BONUS: Ajuste de tamaño para no estirar la cuadrícula */
   .bonus-bar {
-    width: 100% !important;
-    height: 8px !important;
-    margin-top: 4px !important;
-    box-sizing: border-box !important;
+    width: 100%;
+    flex: 1 1 42%;
+    height: 12px;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  /* NIVEL: Altura compacta en móvil */
+  #nivel {
+    flex: 1 1 42%;
+    padding: 4px 8px;
   }
 
   /* TABLERO COMPACTO */
@@ -414,7 +424,7 @@ header h1 {
     border-radius: 4px;
   }
 
-  /* MENSAJE INFERIOR PEQUEÑO EN MÓVIL */
+  /* TEXTO INFERIOR MÁS PEQUEÑO Y COMPACTO */
   #mensaje {
     font-size: 0.75rem;
     padding: 6px 12px;
