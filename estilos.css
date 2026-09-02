@@ -339,6 +339,7 @@ header h1 {
     transform: translate(-50%, -50%) scale(1);
   }
 }
+
 /* ================================================
    4. ADAPTACIÓN RESPONSIVE LIMPIA (MÓVIL)
    ================================================ */
@@ -362,19 +363,46 @@ header h1 {
     font-size: 0.8rem;
   }
 
+  /* MENÚ Y TARJETAS SUPERIORES */
   .menu {
-    gap: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
     margin-bottom: 10px;
     width: 100%;
     max-width: 340px;
+    justify-content: center;
+    align-items: center;
   }
 
+  /* Ajuste uniforme de las cajitas de contadores */
   .menu div {
-    padding: 4px 8px;
+    padding: 6px 8px;
     font-size: 0.75rem;
     border-radius: 6px;
     flex: 1 1 42%;
     text-align: center;
+    box-sizing: border-box;
+  }
+
+  /* Ajuste de alto para la tarjeta del Bonus */
+  .menu div:has(#bonus) {
+    padding: 8px 8px;
+  }
+
+  /* BARRA DE BONUS: Ajuste de tamaño para no estirar la cuadrícula */
+  .bonus-bar {
+    width: 100%;
+    flex: 1 1 42%;
+    height: 12px;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  /* NIVEL: Altura compacta en móvil */
+  #nivel {
+    flex: 1 1 42%;
+    padding: 4px 8px;
   }
 
   /* TABLERO COMPACTO */
@@ -394,7 +422,15 @@ header h1 {
     border-radius: 4px;
   }
 
-  /* VENTANA EMERGENTE CON BLOQUEO TÁCTIL AISLADO */
+  /* TEXTO INFERIOR MÁS PEQUEÑO Y COMPACTO */
+  #mensaje {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+    margin-top: 10px;
+    max-width: 280px;
+  }
+
+  /* VENTANA EMERGENTE (MODAL) */
   #message {
     padding: 14px 12px;
     border-width: 3px;
