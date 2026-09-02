@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ajedrez</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+
+  <header>
+  <h1>Recorrido del Caballo</h1>
+  
+    <div class="settings">
+      <select id="langSelect" onchange="changeLanguage(this.value)">
+        <option value="es" selected>Español</option>
+        <option value="en">English</option>
+      </select>
+
+      <select id="themeSelect" onchange="changeTheme(this.value)">
+        <option id="opt-theme-tradicional" value="tradicional" selected>Tradicional</option>
+        <option id="opt-theme-rosa" value="rosa">Rosa</option>
+        <option id="opt-theme-azul" value="azul">Azul</option>
+        <option id="opt-theme-verde" value="verde">Verde</option>
+        <option id="opt-theme-oscuro" value="oscuro">Lavanda</option>
+        <option id="opt-theme-rojo" value="rojo">Rojo</option>
+      </select>
+    </div>
+  </header>
+
+  <nav class="menu">
+
+    <div id="movimientos">Movimientos: 
+      <span id="moves">64</span>
+    </div>
+    
+    <div id="tiempo">
+      Tiempo: 
+      <span id="minutos">00</span>:
+      <span id="segundos">00</span>
+    </div>
+
+    
+    <div id="opciones">
+      Opciones: <span id="options">0</span>      
+    </div>
+
+    <div>
+      Bonus: <span id="bonus">0</span>
+    </div>
+
+    <!-- Barra bonus -->
+    <div class="bonus-bar">
+      <div class="bonus-fill" id="bonus-fill"></div>
+    </div>
+
+    <!-- Indicador de nivel -->
+    <div id="nivel">Nivel: <span id="nivel-value">1</span></div>
+
+  </nav>
+
+  <main>
+    <div class="tablero" id="tablero">
+      <!-- Fila 0 -->
+      <div id="C00" class="casilla blanca" onclick="CheckCell(0,0)"></div>
+      <div id="C10" class="casilla negra" onclick="CheckCell(1,0)"></div>
+      <div id="C20" class="casilla blanca" onclick="CheckCell(2,0)"></div>
+      <div id="C30" class="casilla negra" onclick="CheckCell(3,0)"></div>
+      <div id="C40" class="casilla blanca" onclick="CheckCell(4,0)"></div>
+      <div id="C50" class="casilla negra" onclick="CheckCell(5,0)"></div>
+      <div id="C60" class="casilla blanca" onclick="CheckCell(6,0)"></div>
+      <div id="C70" class="casilla negra" onclick="CheckCell(7,0)"></div>
+
+      <!-- Fila 1 -->
+      <div id="C01" class="casilla negra" onclick="CheckCell(0,1)"></div>
+      <div id="C11" class="casilla blanca" onclick="CheckCell(1,1)"></div>
+      <div id="C21" class="casilla negra" onclick="CheckCell(2,1)"></div>
+      <div id="C31" class="casilla blanca" onclick="CheckCell(3,1)"></div>
+      <div id="C41" class="casilla negra" onclick="CheckCell(4,1)"></div>
+      <div id="C51" class="casilla blanca" onclick="CheckCell(5,1)"></div>
+      <div id="C61" class="casilla negra" onclick="CheckCell(6,1)"></div>
+      <div id="C71" class="casilla blanca" onclick="CheckCell(7,1)"></div>
+
+      <!-- Fila 2 -->
+      <div id="C02" class="casilla blanca" onclick="CheckCell(0,2)"></div>
+      <div id="C12" class="casilla negra" onclick="CheckCell(1,2)"></div>
+      <div id="C22" class="casilla blanca" onclick="CheckCell(2,2)"></div>
+      <div id="C32" class="casilla negra" onclick="CheckCell(3,2)"></div>
+      <div id="C42" class="casilla blanca" onclick="CheckCell(4,2)"></div>
+      <div id="C52" class="casilla negra" onclick="CheckCell(5,2)"></div>
+      <div id="C62" class="casilla blanca" onclick="CheckCell(6,2)"></div>
+      <div id="C72" class="casilla negra" onclick="CheckCell(7,2)"></div>
+
+      <!-- Fila 3 -->
+      <div id="C03" class="casilla negra" onclick="CheckCell(0,3)"></div>
+      <div id="C13" class="casilla blanca" onclick="CheckCell(1,3)"></div>
+      <div id="C23" class="casilla negra" onclick="CheckCell(2,3)"></div>
+      <div id="C33" class="casilla blanca" onclick="CheckCell(3,3)"></div>
+      <div id="C43" class="casilla negra" onclick="CheckCell(4,3)"></div>
+      <div id="C53" class="casilla blanca" onclick="CheckCell(5,3)"></div>
+      <div id="C63" class="casilla negra" onclick="CheckCell(6,3)"></div>
+      <div id="C73" class="casilla blanca" onclick="CheckCell(7,3)"></div>
+
+      <!-- Fila 4 -->
+      <div id="C04" class="casilla blanca" onclick="CheckCell(0,4)"></div>
+      <div id="C14" class="casilla negra" onclick="CheckCell(1,4)"></div>
+      <div id="C24" class="casilla blanca" onclick="CheckCell(2,4)"></div>
+      <div id="C34" class="casilla negra" onclick="CheckCell(3,4)"></div>
+      <div id="C44" class="casilla blanca" onclick="CheckCell(4,4)"></div>
+      <div id="C54" class="casilla negra" onclick="CheckCell(5,4)"></div>
+      <div id="C64" class="casilla blanca" onclick="CheckCell(6,4)"></div>
+      <div id="C74" class="casilla negra" onclick="CheckCell(7,4)"></div>
+
+      <!-- Fila 5 -->
+      <div id="C05" class="casilla negra" onclick="CheckCell(0,5)"></div>
+      <div id="C15" class="casilla blanca" onclick="CheckCell(1,5)"></div>
+      <div id="C25" class="casilla negra" onclick="CheckCell(2,5)"></div>
+      <div id="C35" class="casilla blanca" onclick="CheckCell(3,5)"></div>
+      <div id="C45" class="casilla negra" onclick="CheckCell(4,5)"></div>
+      <div id="C55" class="casilla blanca" onclick="CheckCell(5,5)"></div>
+      <div id="C65" class="casilla negra" onclick="CheckCell(6,5)"></div>
+      <div id="C75" class="casilla blanca" onclick="CheckCell(7,5)"></div>
+
+      <!-- Fila 6 -->
+      <div id="C06" class="casilla blanca" onclick="CheckCell(0,6)"></div>
+      <div id="C16" class="casilla negra" onclick="CheckCell(1,6)"></div>
+      <div id="C26" class="casilla blanca" onclick="CheckCell(2,6)"></div>
+      <div id="C36" class="casilla negra" onclick="CheckCell(3,6)"></div>
+      <div id="C46" class="casilla blanca" onclick="CheckCell(4,6)"></div>
+      <div id="C56" class="casilla negra" onclick="CheckCell(5,6)"></div>
+      <div id="C66" class="casilla blanca" onclick="CheckCell(6,6)"></div>
+      <div id="C76" class="casilla negra" onclick="CheckCell(7,6)"></div>
+
+      <!-- Fila 7 -->
+      <div id="C07" class="casilla negra" onclick="CheckCell(0,7)"></div>
+      <div id="C17" class="casilla blanca" onclick="CheckCell(1,7)"></div>
+      <div id="C27" class="casilla negra" onclick="CheckCell(2,7)"></div>
+      <div id="C37" class="casilla blanca" onclick="CheckCell(3,7)"></div>
+      <div id="C47" class="casilla negra" onclick="CheckCell(4,7)"></div>
+      <div id="C57" class="casilla blanca" onclick="CheckCell(5,7)"></div>
+      <div id="C67" class="casilla negra" onclick="CheckCell(6,7)"></div>
+      <div id="C77" class="casilla blanca" onclick="CheckCell(7,7)"></div>
+    </div>
+
+    <!-- Mensaje inicial -->
+    <div id="mensaje">¡Haz clic en una casilla para empezar!</div>
+  </main>
+
+  <!-- PANTALLA DE MENSAJES -->
+  <div id="message">
+    <p id="notification"></p>
+    <p id="dataMessage"></p>
+
+
+
+
+    <!-- Botones de acción -->
+    <div id="messageButtons" style="display:none; margin-top:12px;">
+      <button id="retryBtn" onclick="retryLevel()">Reintentar</button>
+      <button id="nextLevelBtn" onclick="continueToNextLevel()">Siguiente Nivel</button>
+      <button id="continueBtn" onclick="hideMessage()">¡Entendido!</button>
+
+    </div>
+
+
+
+  <!-- Scripts JS -->
+  <script src="time_manager.js"></script>
+  <script src="message_manager.js"></script>
+  <script src="board_manager.js"></script>
+  <script src="start_manager.js"></script>
+  <script src="autoplay.js"></script>
+
+  <!-- Función para cambiar el tema -->
+  <script>
+    function changeTheme(theme) {
+        document.body.className = "";
+        if (theme !== "tradicional") {
+            document.body.classList.add("theme-" + theme);
+        }
+    }
+  </script>
+
+</body>
+</html>
