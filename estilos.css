@@ -374,37 +374,36 @@ header h1 {
     width: 100%;
     max-width: 340px;
     justify-content: center;
-    align-items: center;
+    align-items: stretch; /* Iguala la altura vertical de las cajas */
   }
 
-  /* Ajuste uniforme de las cajitas de contadores */
+  /* Ajuste uniforme y estandarizado para TODAS las tarjetas */
   .menu div {
-    padding: 6px 8px;
+    padding: 4px 8px;
     font-size: 0.75rem;
     border-radius: 6px;
     flex: 1 1 42%;
     text-align: center;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
-  /* Ajuste de alto para la tarjeta del Bonus */
-  .menu div:has(#bonus) {
-    padding: 8px 8px;
-  }
-
-  /* BARRA DE BONUS: Ajuste de tamaño para no estirar la cuadrícula */
+  /* BARRA DE BONUS COMPACTA (Evita que aumente la altura de la caja) */
   .bonus-bar {
-    width: 100%;
-    flex: 1 1 42%;
-    height: 12px;
-    margin: 0;
+    width: 90%;
+    height: 6px;
+    margin: 3px auto 0 auto;
     box-sizing: border-box;
   }
 
-  /* NIVEL: Altura compacta en móvil */
+  /* RESET DE ANOMALÍAS DE RELLENO Y ALTURA */
+  .menu div:has(#bonus),
   #nivel {
-    flex: 1 1 42%;
     padding: 4px 8px;
+    flex: 1 1 42%;
   }
 
   /* TABLERO COMPACTO */
@@ -424,7 +423,7 @@ header h1 {
     border-radius: 4px;
   }
 
-  /* TEXTO INFERIOR MÁS PEQUEÑO Y COMPACTO */
+  /* TEXTO INFERIOR PEQUEÑO Y COMPACTO */
   #mensaje {
     font-size: 0.75rem;
     padding: 6px 12px;
