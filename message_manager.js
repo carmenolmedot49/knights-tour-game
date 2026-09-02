@@ -20,7 +20,7 @@ function ShowMessage(string_notification, isGameOver) {
     string_score += `Casillas / Squares: ${hechos}/${total}`;
 
     if (messagePanel && notification) {
-        messagePanel.style.display = "block";
+        messagePanel.style.display = "flex"; // Se cambia a flex para respetar el diseño dinámico CSS
         notification.innerHTML = string_notification + "<br>" + string_score;
 
         if (messageButtons) messageButtons.style.display = "block";
@@ -62,7 +62,7 @@ function ShowInfoMessage(text) {
     const continueBtn = document.getElementById("continueBtn");
 
     if (messagePanel && notification) {
-        messagePanel.style.display = "block";
+        messagePanel.style.display = "flex"; // Se ajusta para alineación vertical completa
         notification.innerHTML = text;
         if (dataMessage) dataMessage.innerHTML = "";
         if (messageButtons) messageButtons.style.display = "block";
@@ -77,3 +77,26 @@ function hideMessage() {
     const messagePanel = document.getElementById("message");
     if (messagePanel) messagePanel.style.display = "none";
 }
+
+// ASIGNACIÓN DE EVENTOS TÁCTILES Y CLIC PARA MÓVILES
+document.addEventListener("DOMContentLoaded", function () {
+    const btns = ["continueBtn", "retryBtn", "nextLevelBtn"];
+
+    btns.forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) {
+            const handler = function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (id === "continueBtn") hideMessage();
+                if (id === "retryBtn") retryLevel();
+                if (id === "nextLevelBtn") continueToNextLevel();
+            };
+
+            // Escuchadores de eventos para móviles (touchend) y escritorio (click)
+            btn.addEventListener("touchend", handler, { passive: false });
+            btn.addEventListener("click", handler);
+        }
+    });
+});
