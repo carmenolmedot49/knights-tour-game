@@ -339,108 +339,96 @@ header h1 {
     transform: translate(-50%, -50%) scale(1);
   }
 }
-
 /* ================================================
-   4. ADAPTACIÓN RESPONSIVE DEFINITIVA (MÓVIL)
+   4. ADAPTACIÓN RESPONSIVE LIMPIA (MÓVIL)
    ================================================ */
 @media (max-width: 600px) {
   body {
-    padding: 10px 5px !important;
+    padding: 10px 5px;
     overflow-x: hidden;
   }
 
   header h1 {
-    font-size: 1.5rem !important;
-    margin: 5px 0 10px 0 !important;
+    font-size: 1.5rem;
+    margin: 5px 0 10px 0;
   }
 
   .settings {
-    margin-bottom: 8px !important;
+    margin-bottom: 8px;
   }
 
   .settings select {
-    padding: 4px 8px !important;
-    font-size: 0.8rem !important;
+    padding: 4px 8px;
+    font-size: 0.8rem;
   }
 
   .menu {
-    gap: 4px !important;
-    margin-bottom: 10px !important;
-    width: 100% !important;
-    max-width: 340px !important;
+    gap: 4px;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 340px;
   }
 
   .menu div {
-    padding: 4px 8px !important;
-    font-size: 0.75rem !important;
-    border-radius: 6px !important;
-    flex: 1 1 42% !important;
-    text-align: center !important;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    border-radius: 6px;
+    flex: 1 1 42%;
+    text-align: center;
   }
 
   /* TABLERO COMPACTO */
   .tablero {
-    grid-template-columns: repeat(8, 10.5vw) !important;
-    grid-template-rows: repeat(8, 10.5vw) !important;
-    width: fit-content !important;
-    margin: 0 auto !important;
-    border-width: 2px !important;
-    border-radius: 10px !important;
+    grid-template-columns: repeat(8, 10.5vw);
+    grid-template-rows: repeat(8, 10.5vw);
+    width: fit-content;
+    margin: 0 auto;
+    border-width: 2px;
+    border-radius: 10px;
   }
 
   .casilla {
-    width: 10.5vw !important;
-    height: 10.5vw !important;
-    font-size: 1rem !important;
-    border-radius: 4px !important;
+    width: 10.5vw;
+    height: 10.5vw;
+    font-size: 1rem;
+    border-radius: 4px;
   }
 
-  /* VENTANA EMERGENTE: Prioridad absoluta para clics táctiles */
+  /* VENTANA EMERGENTE CON BLOQUEO TÁCTIL AISLADO */
   #message {
-    padding: 12px 10px !important;
-    border-width: 3px !important;
-    border-radius: 14px !important;
-    width: 90% !important;
-    max-width: 330px !important;
-    height: auto !important;
-    max-height: 60vh !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    
-    /* Garantiza detección táctil prioritario */
-    z-index: 99999 !important;
-    pointer-events: auto !important;
-    touch-action: manipulation !important;
+    padding: 14px 12px;
+    border-width: 3px;
+    border-radius: 14px;
+    width: 85%;
+    max-width: 320px;
+    height: auto;
+    max-height: 70vh;
+    z-index: 1000;
   }
 
   #notification {
-    font-size: 0.72rem !important;
-    line-height: 1.25 !important;
-    margin: 6px 0 8px 0 !important;
-    padding: 0 4px !important;
-    max-height: 35vh !important;
-    overflow-y: auto !important;
+    font-size: 0.75rem;
+    line-height: 1.3;
+    margin: 6px 0 10px 0;
+    padding: 0 4px;
+    max-height: 40vh;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
 
-  #messageButtons,
-  #continueBtn {
-    margin-top: 4px !important;
-    flex-shrink: 0 !important;
-    position: relative !important;
-    z-index: 100000 !important;
+  #messageButtons {
+    margin-top: 10px;
+    width: 100%;
   }
 
   #messageButtons button, 
-  #continueBtn {
-    font-size: 0.85rem !important;
-    padding: 10px 14px !important; /* Ligeramente más alto para mejor zona táctil */
-    border-radius: 6px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    cursor: pointer !important;
-    pointer-events: auto !important;
-    touch-action: manipulation !important;
+  #continueBtn,
+  #retryBtn,
+  #nextLevelBtn {
+    font-size: 0.9rem;
+    padding: 12px 16px;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
