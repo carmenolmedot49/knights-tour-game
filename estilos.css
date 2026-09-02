@@ -85,10 +85,8 @@ body.theme-oscuro {
 }
 
 /* Tema Rojo */
-
 body.theme-rojo {
-
-  --bg-body: #121212;;
+  --bg-body: #121212;
   --text-main: #e0e0e0;
   --primary-color: #ff5252;    
   --primary-hover: #b71c1c;      
@@ -100,7 +98,6 @@ body.theme-rojo {
   --cell-black-text: #ff5252;
   --cell-visited: #d32f2f;      
   --cell-current: #ff8a80;
-
 }
 
 
@@ -216,6 +213,15 @@ header h1 {
   transition: all 0.3s ease;
 }
 
+/* Estados dinámicos de casillas */
+.casilla.recorrida {
+  background-color: var(--cell-visited) !important;
+}
+
+.casilla.caballo {
+  background-color: var(--cell-current) !important;
+}
+
 #mensaje {
   margin-top: 15px;
   padding: 10px;
@@ -253,6 +259,272 @@ header h1 {
   border-radius: 6px;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+
+/* ================================================
+   1. DEFINICIÓN DE VARIABLES Y TEMAS DE COLOR
+   ================================================ */
+
+/* Tema Tradicional (Por defecto) */
+:root {
+  --bg-body: #121212;
+  --text-main: #E0E0E0;
+  --primary-color: #2E7D32;
+  --primary-hover: #388E3C;
+  --menu-bg: #1E1E1E;
+  --menu-text: #E0E0E0;
+  --cell-white: #FFFFFF;
+  --cell-white-text: #000000;
+  --cell-black: #000000;
+  --cell-black-text: #FFFFFF;
+  --cell-visited: #D97706;
+  --cell-current: #2E7D32;
+}
+
+/* Tema Rosa Pastel */
+body.theme-rosa {
+  --bg-body: #fff0f6;
+  --text-main: #4a3c4c;
+  --primary-color: #d16079;
+  --primary-hover: #ff8bd6;
+  --menu-bg: #f9d1d3;
+  --menu-text: #ad627a;
+  --cell-white: #fce7ee;
+  --cell-white-text: #b37889;
+  --cell-black: #d16079;
+  --cell-black-text: #fff0f6;
+  --cell-visited: #FF6F61;
+  --cell-current: #1ABC9C;
+}
+
+/* Tema Azul Océano */
+body.theme-azul {
+  --bg-body: #e0f7fa;
+  --text-main: #00363a;
+  --primary-color: #00838f;
+  --primary-hover: #4dd0e1;
+  --menu-bg: #b2ebf2;
+  --menu-text: #006064;
+  --cell-white: #e0f7fa;
+  --cell-white-text: #00838f;
+  --cell-black: #00838f;
+  --cell-black-text: #ffffff;
+  --cell-visited: #80deea;
+  --cell-current: #b28dff;
+}
+
+/* Tema Verde Menta */
+body.theme-verde {
+  --bg-body: #e8f5e9;
+  --text-main: #1b5e20;
+  --primary-color: #2e7d32;
+  --primary-hover: #81c784;
+  --menu-bg: #c8e6c9;
+  --menu-text: #1b5e20;
+  --cell-white: #f1f8e9;
+  --cell-white-text: #33691e;
+  --cell-black: #2e7d32;
+  --cell-black-text: #ffffff;
+  --cell-visited: #a5d6a7;
+  --cell-current: #ffb74d;
+}
+
+/* Tema Modo Oscuro */
+body.theme-oscuro {
+  --bg-body: #121212;
+  --text-main: #e0e0e0;
+  --primary-color: #bb86fc;
+  --primary-hover: #3700b3;
+  --menu-bg: #1e1e1e;
+  --menu-text: #bb86fc;
+  --cell-white: #2e2e2e;
+  --cell-white-text: #ffffff;
+  --cell-black: #424242;
+  --cell-black-text: #bb86fc;
+  --cell-visited: #7f39fb;
+  --cell-current: #03dac6;
+}
+
+/* Tema Rojo */
+body.theme-rojo {
+  --bg-body: #121212;
+  --text-main: #e0e0e0;
+  --primary-color: #ff5252;    
+  --primary-hover: #b71c1c;      
+  --menu-bg: #1e1e1e;          
+  --menu-text: #ff5252;       
+  --cell-white: #2e2e2e;     
+  --cell-white-text: #ffffff;
+  --cell-black: #424242;        
+  --cell-black-text: #ff5252;
+  --cell-visited: #d32f2f;      
+  --cell-current: #ff8a80;
+}
+
+
+/* ================================================
+   2. ESTILOS BASE Y ESTRUCTURA
+   ================================================ */
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  margin: 0;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+header h1 {
+  font-weight: 600;
+  font-size: 3rem;
+  margin-bottom: 25px;
+  color: var(--primary-color);
+  letter-spacing: 2px;
+  text-shadow: 0 0 5px var(--menu-bg);
+}
+
+.settings {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.settings select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--primary-color);
+  background: var(--menu-bg);
+  color: var(--menu-text);
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(10px, 3vw, 28px);
+  margin-bottom: 30px;
+  font-weight: 600;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--menu-text);
+  justify-content: center;
+}
+
+.menu div {
+  padding: 12px 20px;
+  border-radius: 14px;
+  background-color: var(--menu-bg);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  cursor: default;
+  user-select: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+
+.menu div:hover {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+}
+
+.tablero {
+  display: grid;
+  grid-template-columns: repeat(8, 65px);
+  grid-template-rows: repeat(8, 65px);
+  border: 3px solid var(--primary-color);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  background: white;
+}
+
+.casilla {
+  width: 65px;
+  height: 65px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.casilla.blanca {
+  background-color: var(--cell-white);
+  color: var(--cell-white-text);
+}
+
+.casilla.negra {
+  background-color: var(--cell-black);
+  color: var(--cell-black-text);
+}
+
+.casilla:hover {
+  background-color: var(--menu-bg) !important;
+  color: var(--primary-color) !important;
+  box-shadow: 0 0 10px var(--primary-color);
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+/* Estados dinámicos de casillas */
+.casilla.recorrida {
+  background-color: var(--cell-visited) !important;
+}
+
+.casilla.caballo {
+  background-color: var(--cell-current) !important;
+}
+
+#mensaje {
+  margin-top: 15px;
+  padding: 10px;
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+  background-color: var(--menu-bg);
+  color: var(--menu-text);
+  font-weight: bold;
+  text-align: center;
+  width: fit-content;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  user-select: none;
+}
+
+.bonus-bar {
+  width: 60%;
+  max-width: 250px;
+  height: 10px;
+  background: var(--menu-bg);
+  border-radius: 6px;
+  margin: 8px auto;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--primary-color);
+}
+
+.bonus-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--primary-hover), var(--primary-color));
+  transition: width 0.3s ease-in-out;
+  border-radius: 6px;
+}
+
+
+/* ================================================
+   3. VENTANA EMERGENTE / MODAL (ESCRITORIO / PC)
+   ================================================ */
+
 #message {
   display: none;
   position: fixed;
@@ -262,31 +534,63 @@ header h1 {
   background: var(--menu-bg);
   border: 4px solid var(--primary-color);
   border-radius: 20px;
-  padding: 30px 40px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  padding: 25px 35px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
   z-index: 9999;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
   color: var(--menu-text);
-  animation: fadeInPop 0.6s ease-out forwards;
-  max-width: 80%;
-  width: auto;
+  animation: fadeInPop 0.4s ease-out forwards;
+
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  
+  /* MEDIDAS PARA ORDENADOR: AMPLIO, ANCHO Y CÓMODO */
+  box-sizing: border-box;
+  width: 90%;
+  max-width: 680px;
+  height: auto;
+  max-height: 80vh;
+}
+
+/* El texto de las reglas en PC */
+#notification {
+  white-space: pre-line;
+  overflow-y: auto;
+  flex: 1 1 auto;
+  margin: 15px 0;
+  padding: 0 10px;
+  word-break: break-word;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--menu-bg);
+}
+
+/* El contenedor del botón */
+#messageButtons,
+#message button,
+#continueBtn {
+  flex-shrink: 0;
+  margin-top: 10px;
 }
 
 #messageButtons button, 
 #continueBtn {
   font-family: 'Quicksand', sans-serif;
   font-size: 1.2rem;
-  padding: 10px 20px;
+  padding: 12px 32px;
   border-radius: 10px;
   border: none;
   background-color: var(--primary-color);
-  color: #fff;
+  color: #ffffff;
   font-weight: bold;
   cursor: pointer;
-  margin: 8px;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-block;
 }
 
 #messageButtons button:hover, 
@@ -295,20 +599,21 @@ header h1 {
   transform: scale(1.05);
 }
 
-#notification {
-  white-space: pre-line;
-}
-
 @keyframes fadeInPop {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.8);
+    transform: translate(-50%, -50%) scale(0.85);
   }
   100% {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
 }
+
+
+/* ================================================
+   4. ADAPTACIÓN RESPONSIVE (MÓVIL COMPACTO)
+   ================================================ */
 
 @media (max-width: 768px) {
   header h1 {
@@ -324,28 +629,51 @@ header h1 {
 
 @media (max-width: 600px) {
   #message {
-    padding: 20px 25px;
-    font-size: 1.2rem;
-    max-width: 90%;
+    padding: 10px 14px;
+    border-width: 3px;
+    border-radius: 14px;
+    
+    /* MÓVIL: MÁS CUADRADO, BAJO Y COMPACTO */
+    width: 90%;
+    max-width: 380px;
+    height: 40vh;
+    max-height: 280px;
+  }
+
+  #notification {
+    font-size: 0.75rem;
+    line-height: 1.25;
+    margin: 4px 0;
+    padding-right: 4px;
+  }
+
+  #messageButtons button, 
+  #continueBtn {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    border-radius: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 4px;
   }
 }
 
-/* REGLAS PARA ACTIVAR LOS COLORES DINÁMICOS EN LAS CASILLAS */
-.casilla.recorrida {
-  background-color: var(--cell-visited) !important;
-}
+@media (max-width: 400px) {
+  #message {
+    width: 92%;
+    height: 42vh;
+    max-height: 290px;
+  }
 
-.casilla.caballo {
-  background-color: var(--cell-current) !important;
-}
+  #notification {
+    font-size: 0.72rem;
+  }
 
-
-/* DISEÑO RESPONSIVE */
-@media (max-width: 540px) {
   .tablero {
     grid-template-columns: repeat(8, 11vw);
     grid-template-rows: repeat(8, 11vw);
   }
+
   .casilla {
     width: 11vw;
     height: 11vw;
