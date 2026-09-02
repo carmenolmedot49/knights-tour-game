@@ -20,7 +20,7 @@ function ShowMessage(string_notification, isGameOver) {
     string_score += `Casillas / Squares: ${hechos}/${total}`;
 
     if (messagePanel && notification) {
-        messagePanel.style.display = "flex"; // Se cambia a flex para respetar el diseño dinámico CSS
+        messagePanel.style.display = "flex";
         notification.innerHTML = string_notification + "<br>" + string_score;
 
         if (messageButtons) messageButtons.style.display = "block";
@@ -62,7 +62,7 @@ function ShowInfoMessage(text) {
     const continueBtn = document.getElementById("continueBtn");
 
     if (messagePanel && notification) {
-        messagePanel.style.display = "flex"; // Se ajusta para alineación vertical completa
+        messagePanel.style.display = "flex";
         notification.innerHTML = text;
         if (dataMessage) dataMessage.innerHTML = "";
         if (messageButtons) messageButtons.style.display = "block";
@@ -78,25 +78,35 @@ function hideMessage() {
     if (messagePanel) messagePanel.style.display = "none";
 }
 
-// ASIGNACIÓN DE EVENTOS TÁCTILES Y CLIC PARA MÓVILES
-document.addEventListener("DOMContentLoaded", function () {
-    const btns = ["continueBtn", "retryBtn", "nextLevelBtn"];
+// ASIGNACIÓN DIRECTA DE EVENTOS MULTIDISPOSITIVO (MÓVIL Y PC)
+function setupButtonEvents() {
+    const actions = {
+        "continueBtn": hideMessage,
+        "retryBtn": retryLevel,
+        "nextLevelBtn": continueToNextLevel
+    };
 
-    btns.forEach(id => {
+    Object.keys(actions).forEach(id => {
         const btn = document.getElementById(id);
         if (btn) {
-            const handler = function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                if (id === "continueBtn") hideMessage();
-                if (id === "retryBtn") retryLevel();
-                if (id === "nextLevelBtn") continueToNextLevel();
+            // Función unificada que responde tanto a toque táctil como a clic de ratón
+            const handleAction = function(e) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                actions[id]();
             };
 
-            // Escuchadores de eventos para móviles (touchend) y escritorio (click)
-            btn.addEventListener("touchend", handler, { passive: false });
-            btn.addEventListener("click", handler);
+            btn.onclick = handleAction;
+            btn.ontouchend = handleAction;
         }
     });
-});
+}
+
+// Ejecutar vinculación al cargar la página
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupButtonEvents);
+} else {
+    setupButtonEvents();
+}
