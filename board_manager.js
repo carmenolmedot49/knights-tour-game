@@ -1,32 +1,45 @@
 // INICIALIZACIÓN DEL TABLERO EN MEMORIA
 function InitBoard() {
     board = [];
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < BoardSize; i++) {
         board[i] = [];
-        for (let j = 0; j < 8; j++) {
+        for (let j = 0; j < BoardSize; j++) {
             board[i][j] = 0;
+        }
+    }
+}
+
+// Generar dinámicamente el HTML del tablero con las casillas más pequeñas según el nivel
+function GenerateBoardHTML() {
+    const tablero = document.getElementById("tablero");
+    if (!tablero) return;
+
+    tablero.innerHTML = "";
+    // Ajusta las columnas y filas según BoardSize usando fr (fracciones iguales)
+    tablero.style.gridTemplateColumns = `repeat(${BoardSize}, 1fr)`;
+    tablero.style.gridTemplateRows = `repeat(${BoardSize}, 1fr)`;
+
+    for (let j = 0; j < BoardSize; j++) {
+        for (let i = 0; i < BoardSize; i++) {
+            let cell = document.createElement("div");
+            cell.id = "C" + i + "_" + j;
+            cell.className = "casilla " + ((i + j) % 2 === 0 ? "blanca" : "negra");
+            cell.onclick = function() { CheckCell(i, j); };
+            tablero.appendChild(cell);
         }
     }
 }
 
 // LIMPIEZA DE INTERFAZ HTML Y RESETEO LÓGICO
+// Limpiar y regenerar el tablero
 function ClearBoard() {
-    for (let i = 0; i < 8; i++) {
-        for (let j = 0; j < 8; j++) {
-            board[i][j] = 0;
-            let cell = document.getElementById("C" + i + j);
-            if (cell) {
-                cell.innerHTML = "";
-                cell.removeAttribute("style"); // Remueve estilos inline para recuperar los de la hoja CSS
-                cell.className = "casilla " + ((i + j) % 2 === 0 ? "blanca" : "negra");
-            }
-        }
-    }
+    InitBoard();
+    GenerateBoardHTML();
 }
 
 // PINTAR CASILLA (RECORRIDA)
 function PaintCell(x, y) {
-    let cell = document.getElementById("C" + x + y);
+    let cell = document.getElementById("C" + x + "_" + y);
     if (cell) {
         cell.removeAttribute("style");
         cell.classList.remove("caballo");
@@ -38,7 +51,7 @@ function PaintCell(x, y) {
 
 // PINTAR CASILLA CON CABALLO
 function PaintHorseCell(x, y) {
-    let cell = document.getElementById("C" + x + y);
+    let cell = document.getElementById("C" + x + "_" + y);
     if (cell) {
         cell.removeAttribute("style");
         cell.classList.remove("recorrida");
@@ -50,7 +63,7 @@ function PaintHorseCell(x, y) {
 
 // PINTAR CASILLA DE ESTRELLA BONUS
 function PaintBonusCell(x, y) {
-    let cell = document.getElementById("C" + x + y);
+    let cell = document.getElementById("C" + x + "_" + y);
     if (cell) {
         cell.style.background = "#FFD166";
         cell.innerHTML = '<img src="estrellablanca.png" alt="Bonus" style="width:100%; height:100%;">';
