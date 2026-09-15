@@ -9,8 +9,8 @@ var isFirstStart = true;
 // Cuenta cuántas casillas únicas han sido visitadas (valor 1 en board)
 function countVisitedCells() {
     let count = 0;
-    for (let i = 0; i < 8; i++) {
-        for (let j = 0; j < 8; j++) {
+    for (let i = 0; i < BoardSize; i++) {
+        for (let j = 0; j < BoardSize; j++) {
             if (board[i][j] === 1) count++;
         }
     }
@@ -57,8 +57,8 @@ function CheckGameOver(x, y) {
         return;
     }
 
-    // Derrota: Sin movimientos restantes O sin opciones normales y sin bonus acumulados
-    if (Moves <= 0 || (Options === 0 && bonusNum === 0)) {
+    // Derrota: Sin opciones normales y sin bonus acumulados para saltar
+    if (Options === 0 && bonusNum === 0) {
         ShowMessage(translations[currentLang].gameOver, true);
     }
 } 
@@ -67,7 +67,7 @@ function CheckMoves(x, y, mov_x, mov_y) {
     let option_x = x + mov_x;
     let option_y = y + mov_y;
 
-    if (option_x < 8 && option_y < 8 && option_x >= 0 && option_y >= 0) {
+    if (option_x < BoardSize && option_y < BoardSize && option_x >= 0 && option_y >= 0) {
         if (board[option_x][option_y] === 0 || board[option_x][option_y] === 2) {
             Options++;
         }
@@ -123,15 +123,19 @@ function CheckCell(x, y) {
         CheckTrue = false;
     }
     
-    // Uso de salto libre por bonus acumulado
+    // Uso de salto libre por bonus acumulado SOLO si no hay movimientos normales (Options === 0)
     if (!CheckTrue && Bonus > 0 && board[x][y] == 0) {
-        CheckTrue = true;
-        Bonus--;
+        if (Options === 0) {
+            CheckTrue = true;
+            Bonus--;
 
-        const bonusEl = document.getElementById("bonus");
-        if (bonusEl) bonusEl.innerHTML = Bonus;
+            const bonusEl = document.getElementById("bonus");
+            if (bonusEl) bonusEl.innerHTML = Bonus;
 
-        ShowInfoMessage(translations[currentLang].bonusUsed);
+            ShowInfoMessage(translations[currentLang].bonusUsed);
+        } else {
+            ShowInfoMessage("Solo puedes usar un bonus cuando no tengas opciones de movimiento.");
+        }
     }
 
     if (CheckTrue) {
@@ -161,8 +165,8 @@ function CheckNewBonus() {
         ShowInfoMessage(translations[currentLang].bonusUnlocked);
 
         let emptyCells = [];
-        for (let i = 0; i < 8; i++) {
-            for (let j = 0; j < 8; j++) {
+        for (let i = 0; i < BoardSize; i++) {
+            for (let j = 0; j < BoardSize; j++) {
                 if (board[i][j] === 0) {
                     emptyCells.push({x: i, y: j});
                 }
@@ -204,12 +208,12 @@ function autoplay() {
     ResetTime();
     StartTime();
 
-    let x = Math.floor(Math.random() * 8);
-    let y = Math.floor(Math.random() * 8);
+    let x = Math.floor(Math.random() * BoardSize);
+    let y = Math.floor(Math.random() * BoardSize);
     
     while (board[x][y] !== 0) {
-        x = Math.floor(Math.random() * 8);
-        y = Math.floor(Math.random() * 8);
+        x = Math.floor(Math.random() * BoardSize);
+        y = Math.floor(Math.random() * BoardSize);
     }
 
     CellSelected_x = x;
