@@ -102,10 +102,12 @@ function setRequiredMoves() {
 }
 
 function setLevelMoves() {
-  if (Level == 1) LevelMoves = 44;
-  if (Level == 2) LevelMoves = 54;
-  if (Level == 3) LevelMoves = 64;
-  if (Level == 4) LevelMoves = 64;
+  if (Level == 1) BoardSize = 8;   // Tablero 8x8 (64 casillas)
+  if (Level == 2) BoardSize = 9;   // Tablero 9x9 (81 casillas)
+  if (Level == 3) BoardSize = 10;  // Tablero 10x10 (100 casillas)
+  if (Level == 4) BoardSize = 11;  // Tablero 11x11 (121 casillas)
+
+  LevelMoves = BoardSize * BoardSize;
 }
 
 function setLevelParameters(nextLevel) {
