@@ -22,5 +22,7 @@ SIN HACER:
 
 2. Cuando salta un mensaje, al cambiar de idioma algunos se traducen y otros no. El mensaje de bienvenida se tiene que traducir sí o sí y actualmente lo hace. Así que, no podemos tocarlo. El resto (los de las casillas bonus, los de reintentar partida, los de siguiente nivel...) algunos sí que se traducen una vez ya han saltado y otros solo se ven en inglés cuando previamente, antes de que saltase el mensaje, ya estaba ese idioma seleccionado. Hay que hacer o que ninguno se pueda cambiar de idioma una vez ya ha saltado, o que todos se puedan cambiar -exceptuando el de bienvenida como ya hemos dicho antes (preferiblemente que todos se puedan cambiar).
 
+3. Reglas del juego: quitar lo de 'todas las casillas exigidas del nivel' y dejar simplemente 'todas las casillas'.
+
 
 Link: https://knights-tour-game-kappa.vercel.app/
