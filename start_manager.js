@@ -23,6 +23,8 @@ const translations = {
     nextLevelBtn: "Siguiente Nivel",
     restartBtn: "Reiniciar Juego",
     startFooterHint: "¡Haz clic en una casilla para empezar!",
+    needBonusForStar: "Necesitas tener al menos 1 bonus acumulado para saltar directamente a la estrella.",
+    bonusOnlyNoMoves: "Solo puedes usar un bonus para saltar libremente a una casilla vacía cuando no tengas opciones de movimiento.",  
     themes: {
       tradicional: "Tradicional",
       rosa: "Rosa",
@@ -45,6 +47,8 @@ const translations = {
     nextLevelBtn: "Next Level",
     restartBtn: "Restart Game",
     startFooterHint: "Click on a square to start!",
+    needBonusForStar: "You need at least 1 accumulated bonus to jump directly to the star.",
+    bonusOnlyNoMoves: "You can only use a bonus to jump freely to an empty square when you have no legal moves left.",
     themes: {
       tradicional: "Traditional",
       rosa: "Pink",
@@ -55,6 +59,7 @@ const translations = {
     }
   }
 };
+
 function changeLanguage(lang) {
   currentLang = lang || "es";
 
@@ -62,11 +67,15 @@ function changeLanguage(lang) {
   const tituloEl = document.querySelector("header h1");
   if (tituloEl) tituloEl.textContent = (currentLang === "es" ? "Recorrido del Caballo" : "Knight's Tour");
 
-  // 2. Si el mensaje modal está visible, actualizar el mensaje de bienvenida
+  // 2. Si el mensaje modal está visible, actualizar el contenido según el estado
   const messagePanel = document.getElementById("message");
   if (messagePanel && messagePanel.style.display === "block") {
     if (MovesDone === 0) {
       ShowInfoMessage(translations[currentLang].welcome);
+    } else if (SuccessfullEnd) {
+      ShowMessage(translations[currentLang].victory, false);
+    } else if (Options === 0 && (parseInt(Bonus, 10) || 0) === 0) {
+      ShowMessage(translations[currentLang].gameOver, true);
     }
   }
 
