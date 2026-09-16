@@ -19,6 +19,9 @@ const translations = {
     gameOver: "¡Has perdido!",
     finalCongratulations: "¡Felicidades! ¡Has completado todos los niveles del juego!",
     understandBtn: "¡Entendido!",
+    retryBtn: "Reintentar",
+    nextLevelBtn: "Siguiente Nivel",
+    restartBtn: "Reiniciar Juego",
     startFooterHint: "¡Haz clic en una casilla para empezar!",
     themes: {
       tradicional: "Tradicional",
@@ -38,6 +41,9 @@ const translations = {
     gameOver: "Game Over!",
     finalCongratulations: "Congratulations! You completed all game levels!",
     understandBtn: "Got it!",
+    retryBtn: "Retry",
+    nextLevelBtn: "Next Level",
+    restartBtn: "Restart Game",
     startFooterHint: "Click on a square to start!",
     themes: {
       tradicional: "Traditional",
@@ -49,7 +55,6 @@ const translations = {
     }
   }
 };
-
 function changeLanguage(lang) {
   currentLang = lang || "es";
 
