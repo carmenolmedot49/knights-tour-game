@@ -109,6 +109,7 @@ function CheckCell(x, y) {
     let dif_x = x - CellSelected_x;
     let dif_y = y - CellSelected_y;
 
+    // Validación de movimiento normal en 'L'
     if (dif_x == 1 && dif_y == -2) CheckTrue = true;
     if (dif_x == 2 && dif_y == -1) CheckTrue = true;
     if (dif_x == 1 && dif_y == 2) CheckTrue = true;
@@ -119,12 +120,25 @@ function CheckCell(x, y) {
     if (dif_x == -1 && dif_y == 2) CheckTrue = true;
     if (dif_x == -2 && dif_y == 1) CheckTrue = true;
 
+    // No se puede volver a pisar una casilla ya visitada
     if (board[x][y] == 1) {
         CheckTrue = false;
     }
     
-    // Uso de salto libre por bonus acumulado SOLO si no hay movimientos normales (Options === 0)
-    if (!CheckTrue && Bonus > 0 && board[x][y] == 0) {
+    // CASO 1: En niveles 1 y 2 permite ir directo a la casilla bonus (board[x][y] == 2)
+    // usando un bonus acumulado, incluso si tienes movimientos en 'L' disponibles.
+    if (!CheckTrue && (Level === 1 || Level === 2) && board[x][y] === 2) {
+        if (Bonus > 0) {
+            CheckTrue = true;
+            // No restamos Bonus aquí porque SelectCell sumará el nuevo bonus al aterrizar
+            ShowInfoMessage(translations[currentLang].bonusUsed);
+        } else {
+            ShowInfoMessage("Necesitas tener al menos 1 bonus acumulado para saltar directamente a la estrella.");
+        }
+    }
+    
+    // CASO 2: Salto libre a casilla vacía (board[x][y] == 0) SOLO cuando no hay opciones de movimiento.
+    else if (!CheckTrue && Bonus > 0 && board[x][y] == 0) {
         if (Options === 0) {
             CheckTrue = true;
             Bonus--;
@@ -134,10 +148,11 @@ function CheckCell(x, y) {
 
             ShowInfoMessage(translations[currentLang].bonusUsed);
         } else {
-            ShowInfoMessage("Solo puedes usar un bonus cuando no tengas opciones de movimiento.");
+            ShowInfoMessage("Solo puedes usar un bonus para saltar libremente a una casilla vacía cuando no tengas opciones de movimiento.");
         }
     }
 
+    // Ejecuta el movimiento si la casilla seleccionada fue validada
     if (CheckTrue) {
         PaintCell(CellSelected_x, CellSelected_y);
         PaintHorseCell(x, y);
@@ -147,7 +162,7 @@ function CheckCell(x, y) {
 
         SelectCell(x, y);
     }
-}  
+}
 
 function updateBonusBar() {
     if (!RequiredMoves) return;
@@ -158,9 +173,16 @@ function updateBonusBar() {
 
 function CheckNewBonus() {
     if (MovesDone > 0 && RequiredMoves > 0 && MovesDone % RequiredMoves === 0) {
-        Moves++;
-        const movesEl = document.getElementById("moves");
-        if (movesEl) movesEl.innerHTML = Moves;
+        // Solo añade movimiento si los movimientos restantes no superan las casillas que quedan
+        const total = LevelMoves || 64;
+        const visited = countVisitedCells();
+        const remainingCells = total - visited;
+
+        if (Moves < remainingCells) {
+            Moves++;
+            const movesEl = document.getElementById("moves");
+            if (movesEl) movesEl.innerHTML = Moves;
+        }
         
         ShowInfoMessage(translations[currentLang].bonusUnlocked);
 
