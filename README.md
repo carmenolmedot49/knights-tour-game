@@ -8,17 +8,18 @@ HECHOS (POR VERIFICAR):
 3. Todos los niveles: que se pueda usar el bonus solo cuando nos quedemos sin opciones de movimiento.
 
 
-
-SIN HACER:
-
-4. Que usando un movimiento extra, pueda caer en la casilla de bonus.
+4.  Niveles 1 y 2: usando un movimiento extra, pueda caer en la casilla de bonus (ahora mismo a las casillas bonus solo puedo acceder mediante una libre con el movimiento de L, quiero que en los niveles 1 y 2 sí que pueda acceder a ellas mediante uno de los movimientos extra, sin necesidad de pasar por una casilla libre haciendo el movimiento).
 
 5. En algunos niveles, al llegar a Game Over no pasa absolutamente nada y no me da la opción de Reintentar. Tiene que estar puesta en todos, la opción de Reintentar ese mismo nivel.
 
-6. Nivel 4: cuando completas el nivel 4 lleva al nivel 3. Debería de mandar un mensaje de Felicitaciones por completar el juego y la opción de empezar de nuevo por el nivel 1.
 
-7. Nivel 3: para pasar de nivel hay más movimientos que casillas, creo? podrias mirar si hay incongruencia en este nivel?
 
+
+
+
+SIN HACER:
+
+(Nada de momento)
 
 
 Link: https://knights-tour-game-kappa.vercel.app/
