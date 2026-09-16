@@ -1,4 +1,3 @@
-// VARIABLES GLOBALES
 let Level = 1;
 let RequiredMoves = 0;
 let Moves = 0;
@@ -6,9 +5,8 @@ let MovesDone = 0;
 let Bonus = 0;
 let LevelMoves = 0;
 let board = [];
-let currentLang = "es"; // Idioma por defecto
+let currentLang = "es";
 
-// Diccionario i18n
 const translations = {
   es: {
     welcome: "¡Bienvenido al Recorrido del Caballo!\n\nREGLAS DEL JUEGO:\n1. Objetivo: Recorre todas las casillas del tablero exigidas en cada nivel pasando solo una vez por cada una.\n2. Movimiento: El caballo se desplaza en forma de 'L'.\n3. Casillas Bonus: Al caer en una estrella o completar suficientes saltos, obtienes movimientos extra.\n4. Victoria: Completa todas las casillas exigidas del nivel antes de quedarte sin movimientos.\n\n¡Haz 'clic' en el tablero para empezar!",
@@ -63,38 +61,11 @@ const translations = {
 function changeLanguage(lang) {
   currentLang = lang || "es";
 
-  // 1. Cambiar el título principal
+  // 1. Actualizar títulos y cabeceras
   const tituloEl = document.querySelector("header h1");
   if (tituloEl) tituloEl.textContent = (currentLang === "es" ? "Recorrido del Caballo" : "Knight's Tour");
 
-  // 2. Si el mensaje modal está visible, actualizar el contenido según el estado
-  const messagePanel = document.getElementById("message");
-  if (messagePanel && messagePanel.style.display === "block") {
-    if (MovesDone === 0) {
-      ShowInfoMessage(translations[currentLang].welcome);
-    } else if (SuccessfullEnd) {
-      ShowMessage(translations[currentLang].victory, false);
-    } else if (Options === 0 && (parseInt(Bonus, 10) || 0) === 0) {
-      ShowMessage(translations[currentLang].gameOver, true);
-    }
-  }
-
-  // 3. Traducir botón "¡Entendido!" / "Got it!"
-  const continueBtn = document.getElementById("continueBtn");
-  if (continueBtn) continueBtn.textContent = translations[currentLang].understandBtn;
-
-  // 4. Traducir el mensaje bajo el tablero
-  const footerMsg = document.getElementById("mensaje");
-  if (footerMsg) footerMsg.textContent = translations[currentLang].startFooterHint;
-
-  // 5. Traducir el menú de selección de temas (colores)
-  const themeMap = translations[currentLang].themes;
-  for (let themeKey in themeMap) {
-    const opt = document.getElementById("opt-theme-" + themeKey);
-    if (opt) opt.textContent = themeMap[themeKey];
-  }
-
-  // 6. Traducir las etiquetas fijas de la interfaz (Menú superior)
+  // 2. Actualizar etiquetas de la barra de estado
   const movEl = document.getElementById("movimientos");
   if (movEl) movEl.childNodes[0].nodeValue = (currentLang === "es" ? "Movimientos: " : "Moves: ");
 
@@ -102,10 +73,37 @@ function changeLanguage(lang) {
   if (tiempoEl) tiempoEl.childNodes[0].nodeValue = (currentLang === "es" ? "Tiempo: " : "Time: ");
 
   const opcionesEl = document.getElementById("opciones");
-  if (opcionesEl) opcionesEl.childNodes[0].nodeValue = (currentLang === "es" ? "Opciones: " : "Options: ");
+  if (opcionesEl) opcionesEl.childNodes[0].nodeValue = (currentLang === "es" ? "Options: " : "Options: ");
 
   const nivelEl = document.getElementById("nivel");
   if (nivelEl) nivelEl.childNodes[0].nodeValue = (currentLang === "es" ? "Nivel: " : "Level: ");
+
+  // 3. Actualizar menú de temas
+  const themeMap = translations[currentLang].themes;
+  for (let themeKey in themeMap) {
+    const opt = document.getElementById("opt-theme-" + themeKey);
+    if (opt) opt.textContent = themeMap[themeKey];
+  }
+
+  // 4. Actualizar pie de página
+  const footerMsg = document.getElementById("mensaje");
+  if (footerMsg) footerMsg.textContent = translations[currentLang].startFooterHint;
+
+  // 5. ACTUALIZACIÓN EN VIVO DEL MODAL (si está visible)
+  const messagePanel = document.getElementById("message");
+  if (messagePanel && messagePanel.style.display === "block") {
+    if (MovesDone === 0 && !SuccessfullEnd) {
+      ShowInfoMessage(translations[currentLang].welcome);
+    } else if (SuccessfullEnd) {
+      if (Level >= 4) {
+        ShowFinalCongratulations();
+      } else {
+        ShowMessage(translations[currentLang].victory, false);
+      }
+    } else if (Options === 0 && (parseInt(Bonus, 10) || 0) === 0) {
+      ShowMessage(translations[currentLang].gameOver, true);
+    }
+  }
 }
 
 function setRequiredMoves() {
@@ -116,10 +114,10 @@ function setRequiredMoves() {
 }
 
 function setLevelMoves() {
-  if (Level == 1) BoardSize = 8;   // Tablero 8x8 (64 casillas)
-  if (Level == 2) BoardSize = 9;   // Tablero 9x9 (81 casillas)
-  if (Level == 3) BoardSize = 10;  // Tablero 10x10 (100 casillas)
-  if (Level == 4) BoardSize = 11;  // Tablero 11x11 (121 casillas)
+  if (Level == 1) BoardSize = 8;
+  if (Level == 2) BoardSize = 9;
+  if (Level == 3) BoardSize = 10;
+  if (Level == 4) BoardSize = 11;
 
   LevelMoves = BoardSize * BoardSize;
 }
