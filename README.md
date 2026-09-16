@@ -7,7 +7,6 @@ HECHOS (POR VERIFICAR):
 
 3. Todos los niveles: que se pueda usar el bonus solo cuando nos quedemos sin opciones de movimiento.
 
-
 4.  Niveles 1 y 2: usando un movimiento extra, pueda caer en la casilla de bonus (ahora mismo a las casillas bonus solo puedo acceder mediante una libre con el movimiento de L, quiero que en los niveles 1 y 2 sí que pueda acceder a ellas mediante uno de los movimientos extra, sin necesidad de pasar por una casilla libre haciendo el movimiento).
 
 5. En algunos niveles, al llegar a Game Over no pasa absolutamente nada y no me da la opción de Reintentar. Tiene que estar puesta en todos, la opción de Reintentar ese mismo nivel.
@@ -19,7 +18,9 @@ HECHOS (POR VERIFICAR):
 
 SIN HACER:
 
-(Nada de momento)
+1. Que cuando le demos a "Reintentar", se vean los movimientos disponibles de este nuevo intento restablecidos (ahora mismo cuando le damos y primero se ven los que quedaban en el antiguo intento y al pinchar la primera casilla ya se restablece, quiero que se vean sin que haya que pinchar en la casilla).
+
+2. Cuando salta un mensaje, al cambiar de idioma algunos se traducen y otros no. El mensaje de bienvenida se tiene que traducir sí o sí y actualmente lo hace. Así que, no podemos tocarlo. El resto (los de las casillas bonus, los de reintentar partida, los de siguiente nivel...) algunos sí que se traducen una vez ya han saltado y otros solo se ven en inglés cuando previamente, antes de que saltase el mensaje, ya estaba ese idioma seleccionado. Hay que hacer o que ninguno se pueda cambiar de idioma una vez ya ha saltado, o que todos se puedan cambiar -exceptuando el de bienvenida como ya hemos dicho antes (preferiblemente que todos se puedan cambiar).
 
 
 Link: https://knights-tour-game-kappa.vercel.app/
