@@ -15,9 +15,17 @@ function ShowMessage(string_notification, isGameOver) {
     const total = Number(LevelMoves) || 64;
     const hechos = typeof countVisitedCells === "function" ? countVisitedCells() : 0;
 
-    let string_score = `<br><strong>Level / Nivel ${Level}</strong><br>`;
-    string_score += `Tiempo / Time: ${timeStr}<br>`;
-    string_score += `Casillas / Squares: ${hechos}/${total}`;
+    // Formateo dinámico según el idioma seleccionado (currentLang)
+    let string_score = "";
+    if (currentLang === "en") {
+        string_score += `<br><strong>Level ${Level}</strong><br>`;
+        string_score += `Time: ${timeStr}<br>`;
+        string_score += `Squares: ${hechos}/${total}`;
+    } else {
+        string_score += `<br><strong>Nivel ${Level}</strong><br>`;
+        string_score += `Tiempo: ${timeStr}<br>`;
+        string_score += `Casillas: ${hechos}/${total}`;
+    }
 
     if (messagePanel && notification) {
         messagePanel.style.display = "block";
