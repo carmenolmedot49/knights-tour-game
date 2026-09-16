@@ -223,6 +223,17 @@ function autoplay() {
     MovesDone = 0;
     Bonus = 0;
 
+    // --- ACTUALIZACIÓN DIRECTA EN LA INTERFAZ ---
+    const movesEl = document.getElementById("moves");
+    if (movesEl) movesEl.innerHTML = Moves;
+
+    const bonusEl = document.getElementById("bonus");
+    if (bonusEl) bonusEl.innerHTML = Bonus;
+
+    const bf = document.getElementById("bonus-fill");
+    if (bf) bf.style.width = "0%";
+    // --------------------------------------------
+
     InitBoard();
     ClearBoard();
     setBoard();
