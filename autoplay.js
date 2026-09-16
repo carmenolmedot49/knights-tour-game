@@ -126,18 +126,17 @@ function CheckCell(x, y) {
     }
     
     // CASO 1: En niveles 1 y 2 permite ir directo a la casilla bonus (board[x][y] == 2)
-    // usando un bonus acumulado, incluso si tienes movimientos en 'L' disponibles.
     if (!CheckTrue && (Level === 1 || Level === 2) && board[x][y] === 2) {
         if (Bonus > 0) {
             CheckTrue = true;
-            // No restamos Bonus aquí porque SelectCell sumará el nuevo bonus al aterrizar
             ShowInfoMessage(translations[currentLang].bonusUsed);
         } else {
-            ShowInfoMessage("Necesitas tener al menos 1 bonus acumulado para saltar directamente a la estrella.");
+            // TRADUCCIÓN APLICADA AQUÍ:
+            ShowInfoMessage(translations[currentLang].needBonusForStar || "Necesitas tener al menos 1 bonus acumulado para saltar directamente a la estrella.");
         }
     }
     
-    // CASO 2: Salto libre a casilla vacía (board[x][y] == 0) SOLO cuando no hay opciones de movimiento.
+    // CASO 2: Salto libre a casilla vacía cuando no hay opciones
     else if (!CheckTrue && Bonus > 0 && board[x][y] == 0) {
         if (Options === 0) {
             CheckTrue = true;
@@ -148,7 +147,8 @@ function CheckCell(x, y) {
 
             ShowInfoMessage(translations[currentLang].bonusUsed);
         } else {
-            ShowInfoMessage("Solo puedes usar un bonus para saltar libremente a una casilla vacía cuando no tengas opciones de movimiento.");
+            // TRADUCCIÓN APLICADA AQUÍ:
+            ShowInfoMessage(translations[currentLang].bonusOnlyNoMoves || "Solo puedes usar un bonus para saltar libremente a una casilla vacía cuando no tengas opciones de movimiento.");
         }
     }
 
@@ -173,7 +173,6 @@ function updateBonusBar() {
 
 function CheckNewBonus() {
     if (MovesDone > 0 && RequiredMoves > 0 && MovesDone % RequiredMoves === 0) {
-        // Solo añade movimiento si los movimientos restantes no superan las casillas que quedan
         const total = LevelMoves || 64;
         const visited = countVisitedCells();
         const remainingCells = total - visited;
