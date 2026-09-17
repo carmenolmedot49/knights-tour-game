@@ -1,5 +1,11 @@
+// Variable para saber qué tipo de mensaje está abierto en el modal
+let currentMessageType = null;
+
 function ShowMessage(string_notification, isGameOver) {
     ResetTime();
+
+    // Guardamos el tipo de mensaje activo
+    currentMessageType = isGameOver ? "gameOver" : "victory";
 
     const messagePanel = document.getElementById("message");
     const notification = document.getElementById("notification");
@@ -67,6 +73,8 @@ function continueToNextLevel() {
 }
 
 function ShowFinalCongratulations() {
+    currentMessageType = "finalCongratulations";
+
     const messagePanel = document.getElementById("message");
     const notification = document.getElementById("notification");
     const dataMessage = document.getElementById("dataMessage");
@@ -103,7 +111,13 @@ function restartGame() {
     autoplay();
 }
 
-function ShowInfoMessage(text) {
+function ShowInfoMessage(text, messageKey) {
+    if (messageKey) {
+        currentMessageType = messageKey;
+    } else if (text === translations[currentLang]?.welcome) {
+        currentMessageType = "welcome";
+    }
+
     const messagePanel = document.getElementById("message");
     const notification = document.getElementById("notification");
     const dataMessage = document.getElementById("dataMessage");
@@ -123,12 +137,26 @@ function ShowInfoMessage(text) {
         if (continueBtn) {
             continueBtn.style.display = "inline-block";
             continueBtn.textContent = translations[currentLang]?.understandBtn || "¡Entendido!";
-            continueBtn.onclick = hideMessage;
+            continueBtn.onclick = function() {
+                hideMessage();
+            };
         }
     }
 }
 
+// Función unificada para ocultar el mensaje y controlar la secuencia
 function hideMessage() {
-    const messagePanel = document.getElementById("message");
-    if (messagePanel) messagePanel.style.display = "none";
+    const messageBox = document.getElementById("message");
+    if (messageBox) messageBox.style.display = "none";
+
+    // Si veníamos del mensaje de bienvenida inicial, lanzamos inmediatamente el tip de bonus
+    if (isFirstStart && currentMessageType === "welcome") {
+        isFirstStart = false; // Desactivamos la bienvenida para que no vuelva a salir al reintentar
+        ShowInfoMessage(translations[currentLang].level2BonusTip, "level2BonusTip");
+    }
+}
+
+// Alias con mayúscula para compatibilidad con llamadas externas
+function HideMessage() {
+    hideMessage();
 }
