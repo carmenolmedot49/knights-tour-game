@@ -23,7 +23,7 @@ const translations = {
     startFooterHint: "¡Haz clic en una casilla para empezar!",
     needBonusForStar: "Necesitas tener al menos 1 bonus acumulado para saltar directamente a la estrella.",
     bonusOnlyNoMoves: "Solo puedes usar un bonus para saltar libremente a una casilla vacía cuando no tengas opciones de movimiento.",
-    level2BonusTip: "¡En este nivel, usando un movimiento extra puedes saltar a una casilla bonus!",
+    level2BonusTip: "En este nivel, usando un movimiento extra, ¡puedes saltar a una casilla bonus!",
     themes: {
       tradicional: "Tradicional",
       rosa: "Rosa",
