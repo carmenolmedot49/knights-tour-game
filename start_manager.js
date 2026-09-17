@@ -9,7 +9,7 @@ let currentLang = "es";
 
 const translations = {
   es: {
-    welcome: "¡Bienvenido al Recorrido del Caballo!\n\nREGLAS DEL JUEGO:\n1. Objetivo: Recorre todas las casillas del tablero exigidas en cada nivel pasando solo una vez por cada una.\n2. Movimiento: El caballo se desplaza en forma de 'L'.\n3. Casillas Bonus: Al caer en una estrella o completar suficientes saltos, obtienes movimientos extra.\n4. Victoria: Completa todas las casillas exigidas del nivel antes de quedarte sin movimientos.\n\n¡Haz 'clic' en el tablero para empezar!",
+    welcome: "¡Bienvenido al Recorrido del Caballo!\n\nREGLAS DEL JUEGO:\n1. Objetivo: Recorre todas las casillas del tablero exigidas en cada nivel pasando solo una vez por cada una.\n2. Movimiento: El caballo se desplaza en forma de 'L'.\n3. Casillas Bonus: Al caer en una estrella o completar suficientes saltos, obtienes movimientos extra.\n4. Victoria: Completa todas las casillas de cada nivel antes de quedarte sin movimientos.\n\n¡Haz 'clic' en el tablero para empezar!",
     bonusLanded: "¡Has caído en una casilla bonus y ganas un movimiento extra!",
     bonusUsed: "¡Has usado un bonus para moverte libremente!",
     bonusUnlocked: "¡Bonus desbloqueado!\n¡Has ganado un movimiento extra!",
@@ -22,7 +22,8 @@ const translations = {
     restartBtn: "Reiniciar Juego",
     startFooterHint: "¡Haz clic en una casilla para empezar!",
     needBonusForStar: "Necesitas tener al menos 1 bonus acumulado para saltar directamente a la estrella.",
-    bonusOnlyNoMoves: "Solo puedes usar un bonus para saltar libremente a una casilla vacía cuando no tengas opciones de movimiento.",  
+    bonusOnlyNoMoves: "Solo puedes usar un bonus para saltar libremente a una casilla vacía cuando no tengas opciones de movimiento.",
+    level2BonusTip: "¡En este nivel, usando un movimiento extra puedes saltar a una casilla bonus!",
     themes: {
       tradicional: "Tradicional",
       rosa: "Rosa",
@@ -33,7 +34,7 @@ const translations = {
     }
   },
   en: {
-    welcome: "Welcome to the Knight's Tour!\n\nGAME RULES:\n1. Objective: Visit all the required board squares in each level without repeating any.\n2. Movement: The knight moves in an 'L' shape.\n3. Bonus Squares: Land on a star or complete enough jumps to gain extra moves.\n4. Victory: Complete all the required squares for the level before running out of moves.\n\nClick on the board to start playing!",
+    welcome: "Welcome to the Knight's Tour!\n\nGAME RULES:\n1. Objective: Visit all the required board squares in each level without repeating any.\n2. Movement: The knight moves in an 'L' shape.\n3. Bonus Squares: Land on a star or complete enough jumps to gain extra moves.\n4. Victory: Complete all the squares of each level before running out of moves.\n\nClick on the board to start playing!",
     bonusLanded: "You landed on a bonus square and earned an extra move!",
     bonusUsed: "You used a bonus to move freely!",
     bonusUnlocked: "Bonus unlocked!\nYou gained an extra move!",
@@ -47,6 +48,7 @@ const translations = {
     startFooterHint: "Click on a square to start!",
     needBonusForStar: "You need at least 1 accumulated bonus to jump directly to the star.",
     bonusOnlyNoMoves: "You can only use a bonus to jump freely to an empty square when you have no legal moves left.",
+    level2BonusTip: "In this level, using an extra move, you can jump directly to a bonus square!",
     themes: {
       tradicional: "Traditional",
       rosa: "Pink",
@@ -91,23 +93,23 @@ function changeLanguage(lang) {
 
   // 5. ACTUALIZACIÓN EN VIVO DEL MODAL (si está visible)
   const messagePanel = document.getElementById("message");
-  if (messagePanel && messagePanel.style.display === "block") {
-    if (MovesDone === 0 && !SuccessfullEnd) {
-      ShowInfoMessage(translations[currentLang].welcome);
-    } else if (SuccessfullEnd) {
-      if (Level >= 4) {
-        ShowFinalCongratulations();
-      } else {
-        ShowMessage(translations[currentLang].victory, false);
-      }
-    } else if (Options === 0 && (parseInt(Bonus, 10) || 0) === 0) {
+  if (messagePanel && messagePanel.style.display === "block" && currentMessageType) {
+    if (currentMessageType === "welcome") {
+      ShowInfoMessage(translations[currentLang].welcome, "welcome");
+    } else if (currentMessageType === "victory") {
+      ShowMessage(translations[currentLang].victory, false);
+    } else if (currentMessageType === "gameOver") {
       ShowMessage(translations[currentLang].gameOver, true);
+    } else if (currentMessageType === "finalCongratulations") {
+      ShowFinalCongratulations();
+    } else if (translations[currentLang][currentMessageType]) {
+      ShowInfoMessage(translations[currentLang][currentMessageType], currentMessageType);
     }
   }
 }
 
 function setRequiredMoves() {
-  if (Level == 1) RequiredMoves = 5;
+  if (Level == 1) RequiredMoves = 8;
   if (Level == 2) RequiredMoves = 8;
   if (Level == 3) RequiredMoves = 10;
   if (Level == 4) RequiredMoves = 15;
