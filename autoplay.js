@@ -17,10 +17,10 @@ function countVisitedCells() {
     return count;
 }
 
-// GANAR JUEGO: Verifica si se completaron las casillas objetivo del nivel
+// GANAR JUEGO: Exige la totalidad de las casillas del tablero actual
 function CheckSuccessfulEnd() { 
     const visited = countVisitedCells();
-    const target = LevelMoves || 64;
+    const target = LevelMoves;
 
     if (visited >= target) {
         SuccessfullEnd = true;
@@ -30,7 +30,7 @@ function CheckSuccessfulEnd() {
     return false;
 }
 
-// PERDER JUEGO
+// PERDER JUEGO Y CÁLCULO DE OPCIONES
 function CheckGameOver(x, y) {
     Options = 0;
 
@@ -49,15 +49,13 @@ function CheckGameOver(x, y) {
 
     const bonusNum = parseInt(Bonus, 10) || 0;
     const visited = countVisitedCells();
-    const target = LevelMoves || 64;
 
-    // Si ya completó las casillas objetivo
-    if (visited >= target) {
+    if (visited >= LevelMoves) {
         CheckSuccessfulEnd();
         return;
     }
 
-    // Derrota: Sin opciones normales y sin bonus acumulados para saltar
+    // Si no quedan movimientos en L y tampoco bonus acumulados -> Game Over siempre
     if (Options === 0 && bonusNum === 0) {
         ShowMessage(translations[currentLang].gameOver, true);
     }
@@ -74,7 +72,7 @@ function CheckMoves(x, y, mov_x, mov_y) {
     }
 }
 
-function SelectCell(x, y) {
+function SelectCell(x, y, isDirectBonusJump) {
     MovesDone++;
     Moves--;
 
@@ -83,12 +81,13 @@ function SelectCell(x, y) {
     const movesEl = document.getElementById("moves");
     if (movesEl) movesEl.innerHTML = Moves;
 
-    if (board[x][y] === 2) {
+    // Si pisó estrella de forma normal, suma bonus. Si fue por salto directo usando bonus, no incrementa.
+    if (board[x][y] === 2 && !isDirectBonusJump) {
         Bonus++;
         const bonusEl = document.getElementById("bonus");
         if (bonusEl) bonusEl.innerHTML = Bonus;
 
-        ShowInfoMessage(translations[currentLang].bonusLanded);
+        ShowInfoMessage(translations[currentLang].bonusLanded, "bonusLanded");
     }
 
     board[x][y] = 1;
@@ -105,6 +104,7 @@ function SelectCell(x, y) {
 
 function CheckCell(x, y) { 
     let CheckTrue = false;
+    let isDirectBonusJump = false;
 
     let dif_x = x - CellSelected_x;
     let dif_y = y - CellSelected_y;
@@ -120,23 +120,27 @@ function CheckCell(x, y) {
     if (dif_x == -1 && dif_y == 2) CheckTrue = true;
     if (dif_x == -2 && dif_y == 1) CheckTrue = true;
 
-    // No se puede volver a pisar una casilla ya visitada
     if (board[x][y] == 1) {
         CheckTrue = false;
     }
     
-    // CASO 1: En niveles 1 y 2 permite ir directo a la casilla bonus (board[x][y] == 2)
+    // CASO 1: Salto directo a la estrella usando 1 bonus acumulado (Niveles 1 y 2)
     if (!CheckTrue && (Level === 1 || Level === 2) && board[x][y] === 2) {
         if (Bonus > 0) {
             CheckTrue = true;
-            ShowInfoMessage(translations[currentLang].bonusUsed);
+            isDirectBonusJump = true;
+            Bonus--; // Se consume efectivamente el bonus
+
+            const bonusEl = document.getElementById("bonus");
+            if (bonusEl) bonusEl.innerHTML = Bonus;
+
+            ShowInfoMessage(translations[currentLang].bonusUsed, "bonusUsed");
         } else {
-            ShowInfoMessage(translations[currentLang].needBonusForStar || "Necesitas tener al menos 1 bonus acumulado para saltar directamente a la estrella.");
+            ShowInfoMessage(translations[currentLang].needBonusForStar, "needBonusForStar");
         }
     }
-    
-    // CASO 2: Salto libre a casilla vacía cuando no hay opciones
-    else if (!CheckTrue && Bonus > 0 && board[x][y] == 0) {
+    // CASO 2: Salto libre a casilla vacía SOLO cuando no hay opciones en L
+    else if (!CheckTrue && Bonus > 0 && board[x][y] === 0) {
         if (Options === 0) {
             CheckTrue = true;
             Bonus--;
@@ -144,13 +148,12 @@ function CheckCell(x, y) {
             const bonusEl = document.getElementById("bonus");
             if (bonusEl) bonusEl.innerHTML = Bonus;
 
-            ShowInfoMessage(translations[currentLang].bonusUsed);
+            ShowInfoMessage(translations[currentLang].bonusUsed, "bonusUsed");
         } else {
-            ShowInfoMessage(translations[currentLang].bonusOnlyNoMoves || "Solo puedes usar un bonus para saltar libremente a una casilla vacía cuando no tengas opciones de movimiento.");
+            ShowInfoMessage(translations[currentLang].bonusOnlyNoMoves, "bonusOnlyNoMoves");
         }
     }
 
-    // Ejecuta el movimiento si la casilla seleccionada fue validada
     if (CheckTrue) {
         PaintCell(CellSelected_x, CellSelected_y);
         PaintHorseCell(x, y);
@@ -158,7 +161,7 @@ function CheckCell(x, y) {
         CellSelected_x = x;
         CellSelected_y = y;
 
-        SelectCell(x, y);
+        SelectCell(x, y, isDirectBonusJump);
     }
 }
 
@@ -171,9 +174,8 @@ function updateBonusBar() {
 
 function CheckNewBonus() {
     if (MovesDone > 0 && RequiredMoves > 0 && MovesDone % RequiredMoves === 0) {
-        const total = LevelMoves || 64;
         const visited = countVisitedCells();
-        const remainingCells = total - visited;
+        const remainingCells = LevelMoves - visited;
 
         if (Moves < remainingCells) {
             Moves++;
@@ -181,7 +183,7 @@ function CheckNewBonus() {
             if (movesEl) movesEl.innerHTML = Moves;
         }
         
-        ShowInfoMessage(translations[currentLang].bonusUnlocked);
+        ShowInfoMessage(translations[currentLang].bonusUnlocked, "bonusUnlocked");
 
         let emptyCells = [];
         for (let i = 0; i < BoardSize; i++) {
@@ -205,14 +207,9 @@ function CheckNewBonus() {
 function autoplay() {
     SuccessfullEnd = false;
     Options = 0;
-    
+
     const messageBox = document.getElementById("message");
     if (messageBox) messageBox.style.display = "none";
-
-    if (isFirstStart) {
-        ShowInfoMessage(translations[currentLang].welcome);
-        isFirstStart = false;
-    }
 
     setLevelMoves();
     setRequiredMoves();
@@ -225,23 +222,16 @@ function autoplay() {
 
     let x = Math.floor(Math.random() * BoardSize);
     let y = Math.floor(Math.random() * BoardSize);
-    
-    while (board[x][y] !== 0) {
-        x = Math.floor(Math.random() * BoardSize);
-        y = Math.floor(Math.random() * BoardSize);
-    }
+
+    board[x][y] = 1;
 
     CellSelected_x = x;
     CellSelected_y = y;
 
-    board[x][y] = 1;
-
-    // Descontamos la casilla donde se posiciona el caballo automáticamente al iniciar
     MovesDone = 1;
-    Moves = (LevelMoves || 64) - 1;
+    Moves = LevelMoves - 1;
     Bonus = 0;
 
-    // --- ACTUALIZACIÓN DIRECTA EN LA INTERFAZ ---
     const movesEl = document.getElementById("moves");
     if (movesEl) movesEl.innerHTML = Moves;
 
@@ -250,10 +240,17 @@ function autoplay() {
 
     const bf = document.getElementById("bonus-fill");
     if (bf) bf.style.width = "0%";
-    // --------------------------------------------
 
     PaintHorseCell(x, y);
+    
+    // Calcula y actualiza las opciones disponibles al arrancar el nivel de inmediato
     CheckGameOver(x, y); 
+
+    if (isFirstStart) {
+        ShowInfoMessage(translations[currentLang].welcome, "welcome");
+    } else if (Level === 1 || Level === 2) {
+        ShowInfoMessage(translations[currentLang].level2BonusTip, "level2BonusTip");
+    }
 }
 
 autoplay();
