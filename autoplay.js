@@ -131,7 +131,6 @@ function CheckCell(x, y) {
             CheckTrue = true;
             ShowInfoMessage(translations[currentLang].bonusUsed);
         } else {
-            // TRADUCCIÓN APLICADA AQUÍ:
             ShowInfoMessage(translations[currentLang].needBonusForStar || "Necesitas tener al menos 1 bonus acumulado para saltar directamente a la estrella.");
         }
     }
@@ -147,7 +146,6 @@ function CheckCell(x, y) {
 
             ShowInfoMessage(translations[currentLang].bonusUsed);
         } else {
-            // TRADUCCIÓN APLICADA AQUÍ:
             ShowInfoMessage(translations[currentLang].bonusOnlyNoMoves || "Solo puedes usar un bonus para saltar libremente a una casilla vacía cuando no tengas opciones de movimiento.");
         }
     }
@@ -219,21 +217,6 @@ function autoplay() {
     setLevelMoves();
     setRequiredMoves();
 
-    Moves = LevelMoves || 64;
-    MovesDone = 0;
-    Bonus = 0;
-
-    // --- ACTUALIZACIÓN DIRECTA EN LA INTERFAZ ---
-    const movesEl = document.getElementById("moves");
-    if (movesEl) movesEl.innerHTML = Moves;
-
-    const bonusEl = document.getElementById("bonus");
-    if (bonusEl) bonusEl.innerHTML = Bonus;
-
-    const bf = document.getElementById("bonus-fill");
-    if (bf) bf.style.width = "0%";
-    // --------------------------------------------
-
     InitBoard();
     ClearBoard();
     setBoard();
@@ -252,7 +235,23 @@ function autoplay() {
     CellSelected_y = y;
 
     board[x][y] = 1;
-    
+
+    // Descontamos la casilla donde se posiciona el caballo automáticamente al iniciar
+    MovesDone = 1;
+    Moves = (LevelMoves || 64) - 1;
+    Bonus = 0;
+
+    // --- ACTUALIZACIÓN DIRECTA EN LA INTERFAZ ---
+    const movesEl = document.getElementById("moves");
+    if (movesEl) movesEl.innerHTML = Moves;
+
+    const bonusEl = document.getElementById("bonus");
+    if (bonusEl) bonusEl.innerHTML = Bonus;
+
+    const bf = document.getElementById("bonus-fill");
+    if (bf) bf.style.width = "0%";
+    // --------------------------------------------
+
     PaintHorseCell(x, y);
     CheckGameOver(x, y); 
 }
