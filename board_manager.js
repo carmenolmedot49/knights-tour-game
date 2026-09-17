@@ -75,3 +75,4 @@ function setBoard() {
     // Tablero limpio para todos los niveles (la dificultad se define por los movimientos)
     return;
 }
+
