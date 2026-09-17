@@ -10,8 +10,6 @@ HECHOS (VERIFICADOS):
 
 6. Que cuando le demos a "Reintentar", se vean los movimientos disponibles de este nuevo intento restablecidos (ahora mismo cuando le damos y primero se ven los que quedaban en el antiguo intento y al pinchar la primera casilla ya se restablece, quiero que se vean sin que haya que pinchar en la casilla).
 
-8. Reglas del juego: quitar lo de 'todas las casillas exigidas del nivel' y dejar simplemente 'todas las casillas'.
-
 
 
 HECHOS (POR VERIFICAR):
@@ -19,7 +17,7 @@ HECHOS (POR VERIFICAR):
 
 
 
-4.  Nivel 1 y 2: usando un movimiento extra, pueda caer en la casilla de bonus (ahora mismo a las casillas bonus solo puedo acceder mediante una libre con el movimiento de L, quiero que en el nivel 1 y en el 2 sí que pueda acceder a ellas mediante uno de los movimientos extra, sin necesidad de pasar por una casilla libre haciendo el movimiento).
+4.  Nivel 1 y 2: usando un movimiento extra, pueda caer en la casilla de bonus (ahora mismo a las casillas bonus solo puedo acceder mediante una libre con el movimiento de L, quiero que en el nivel 1 y en el 2 sí que pueda acceder a ellas mediante uno de los movimientos extra, sin necesidad de pasar por una casilla libre haciendo el movimiento). Además, debe de haber un mensaje de aviso.
 
 5. En algunos niveles, al llegar a Game Over no pasa absolutamente nada y no me da la opción de Reintentar. Tiene que estar puesta en todos, la opción de Reintentar ese mismo nivel.
 
