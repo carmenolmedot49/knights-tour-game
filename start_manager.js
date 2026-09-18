@@ -9,7 +9,7 @@ let currentLang = "es";
 
 const translations = {
   es: {
-    welcome: "¡Bienvenido al Recorrido del Caballo!\n\nREGLAS DEL JUEGO:\n1. Objetivo: Recorre todas las casillas del tablero pasando solo una vez por cada una.\n2. Movimiento: El caballo se desplaza en forma de 'L'.\n3. Barra de saltos: Al completar suficientes movimientos, la barra se llena y ganas 1 movimiento extra en el contador.\n4. Estrellas Bonus: Cada vez que llenas la barra, aparece una estrella en el tablero. Si caes en ella, consigues 1 bonus acumulable para hacer saltos especiales cuando te quedes bloqueado.\n5. Victoria: Completa todas las casillas del tablero para ganar.\n\n¡Haz 'clic' en el tablero para empezar!",    bonusLanded: "¡Has caído en una casilla bonus y ganas un movimiento extra!",
+    welcome: "¡Bienvenido al Recorrido del Caballo!\n\nREGLAS DEL JUEGO:\n1. Objetivo: Recorre todas las casillas del tablero pasando solo una vez por cada una.\n2. Movimiento: El caballo se desplaza en forma de 'L'.\n3. Barra de saltos: Al completar suficientes movimientos, la barra se llena y ganas 1 movimiento extra en el contador.\n4. Estrellas Bonus: Cada vez que llenas la barra, aparece una estrella en el tablero. Si caes en ella, consigues 1 bonus acumulable para hacer saltos especiales cuando te quedes bloqueado.\n5. Victoria: Completa todas las casillas del tablero para ganar.\n\n¡Haz 'clic' en el tablero para empezar!",
     bonusLanded: "¡Has caído en una casilla bonus y ganas un movimiento extra!",
     bonusUsed: "¡Has usado un bonus para moverte libremente!",
     bonusUnlocked: "¡Bonus desbloqueado!\n¡Has ganado un movimiento extra!",
@@ -34,7 +34,7 @@ const translations = {
     }
   },
   en: {
-    welcome: "Welcome to the Knight's Tour!\n\nGAME RULES:\n1. Objective: Visit all the board squares without repeating any.\n2. Movement: The knight moves in an 'L' shape.\n3. Jump Bar: By completing enough moves, the bar fills up and you gain 1 extra move in your counter.\n4. Bonus Stars: Every time you fill the bar, a star appears on the board. Landing on it awards 1 stackable bonus to make special jumps when you run out of legal moves.\n5. Victory: Complete all squares on the board to win.\n\nClick on the board to start playing!",    bonusLanded: "You landed on a bonus square and earned an extra move!",
+    welcome: "Welcome to the Knight's Tour!\n\nGAME RULES:\n1. Objective: Visit all the board squares without repeating any.\n2. Movement: The knight moves in an 'L' shape.\n3. Jump Bar: By completing enough moves, the bar fills up and you gain 1 extra move in your counter.\n4. Bonus Stars: Every time you fill the bar, a star appears on the board. Landing on it awards 1 stackable bonus to make special jumps when you run out of legal moves.\n5. Victory: Complete all squares on the board to win.\n\nClick on the board to start playing!",
     bonusLanded: "You landed on a bonus square and earned an extra move!",
     bonusUsed: "You used a bonus to move freely!",
     bonusUnlocked: "Bonus unlocked!\nYou gained an extra move!",
