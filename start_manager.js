@@ -23,7 +23,7 @@ const translations = {
     startFooterHint: "¡Haz clic en una casilla para empezar!",
     needBonusForStar: "Necesitas tener al menos 1 bonus acumulado para saltar directamente a la estrella.",
     bonusOnlyNoMoves: "Solo puedes usar un bonus para saltar libremente a una casilla vacía cuando no tengas opciones de movimiento.",
-    level2BonusTip: "En este nivel, ¡puedes gastar un movimiento extra para saltar a una casilla bonus! El movimiento se consumirá y la casilla contará como visitada, pero ten en cuenta que funcionará como una casilla normal, sin generar ningún movimiento extra.",
+    level2BonusTip: "¡Recuerda que puedes gastar un movimiento extra para saltar a una casilla bonus! El movimiento se consumirá y la casilla contará como visitada, pero ten en cuenta que funcionará como una casilla normal, sin generar ningún movimiento extra.",
     themes: {
       tradicional: "Tradicional",
       rosa: "Rosa",
@@ -48,7 +48,7 @@ const translations = {
     startFooterHint: "Click on a square to start!",
     needBonusForStar: "You need at least 1 accumulated bonus to jump directly to the star.",
     bonusOnlyNoMoves: "You can only use a bonus to jump freely to an empty square when you have no legal moves left.",
-    level2BonusTip: "In this level, you can spend an extra move to jump to a bonus tile! The move will be consumed, and the tile will count as visited, but keep in mind that it will function like a normal tile, without generating any extra moves.",
+    level2BonusTip: "Remember that you can spend an extra move to jump to a bonus tile! The move will be consumed, and the tile will count as visited, but keep in mind that it will function like a normal tile, without generating any extra moves.",
     themes: {
       tradicional: "Traditional",
       rosa: "Pink",
