@@ -109,10 +109,10 @@ function changeLanguage(lang) {
 }
 
 function setRequiredMoves() {
-  if (Level == 1) RequiredMoves = 8;
+  if (Level == 1) RequiredMoves = 6;
   if (Level == 2) RequiredMoves = 8;
   if (Level == 3) RequiredMoves = 10;
-  if (Level == 4) RequiredMoves = 15;
+  if (Level == 4) RequiredMoves = 12;
 }
 
 function setLevelMoves() {
