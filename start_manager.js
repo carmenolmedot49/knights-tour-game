@@ -75,7 +75,7 @@ function changeLanguage(lang) {
   if (tiempoEl) tiempoEl.childNodes[0].nodeValue = (currentLang === "es" ? "Tiempo: " : "Time: ");
 
   const opcionesEl = document.getElementById("opciones");
-  if (opcionesEl) opcionesEl.childNodes[0].nodeValue = (currentLang === "es" ? "Options: " : "Options: ");
+  if (opcionesEl) opcionesEl.childNodes[0].nodeValue = (currentLang === "es" ? "Opciones: " : "Options: ");
 
   const nivelEl = document.getElementById("nivel");
   if (nivelEl) nivelEl.childNodes[0].nodeValue = (currentLang === "es" ? "Nivel: " : "Level: ");
