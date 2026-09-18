@@ -124,8 +124,8 @@ function CheckCell(x, y) {
         CheckTrue = false;
     }
     
-    // CASO 1: Salto directo a la estrella usando 1 bonus acumulado (Niveles 1 y 2)
-    if (!CheckTrue && (Level === 1 || Level === 2) && board[x][y] === 2) {
+    // CASO 1: Salto directo a la estrella usando 1 bonus acumulado (En todos los niveles)
+    if (!CheckTrue && board[x][y] === 2) {
         if (Bonus > 0) {
             CheckTrue = true;
             isDirectBonusJump = true;
@@ -247,8 +247,8 @@ function autoplay() {
     CheckGameOver(x, y); 
 
     if (isFirstStart) {
-        ShowInfoMessage(translations[currentLang].welcome, "welcome");
-    } else if (Level === 1 || Level === 2) {
+    ShowInfoMessage(translations[currentLang].welcome, "welcome");
+    } else {
         ShowInfoMessage(translations[currentLang].level2BonusTip, "level2BonusTip");
     }
 }
